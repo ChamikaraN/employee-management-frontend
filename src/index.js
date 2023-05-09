@@ -1,6 +1,5 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import store from "./redux/store";
@@ -24,5 +23,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-reportWebVitals();
