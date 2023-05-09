@@ -83,7 +83,7 @@ export default function AddEditEmployee() {
           }}
           disabled={addEmployeeIsLoading || editEmployeeIsLoading}
         >
-          <i class="fa-solid fa-arrow-left"></i> Back
+          <i className="fa-solid fa-arrow-left"></i> Back
         </button>
         <h2 className="mb-4 text-white">{id ? "Edit" : "Add"} Employee</h2>
         <form onSubmit={handleSubmit} className="p-5 border rounded bg-white">
