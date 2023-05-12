@@ -100,6 +100,7 @@ export default function Toolbar() {
 
         <button
           className="btn btn-outline-light mr-1 my-1"
+          data-testid="add-employee"
           onClick={(e) => {
             e.preventDefault();
             navigate("/employee/add");
@@ -112,11 +113,13 @@ export default function Toolbar() {
           onClick={() => {
             dispatch(toggleView(!showGridView));
           }}
+          data-testid="toggle-view-btn"
         >
           <i
             className={`fas ${
               showGridView ? "fa-table" : "fa-grip-horizontal"
             } mr-2`}
+            data-testid="toggle-view-icon"
           />
           View
         </button>
