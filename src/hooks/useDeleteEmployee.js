@@ -20,9 +20,9 @@ const useDeleteEmployee = () => {
       queryClient.invalidateQueries("fetch-employees");
       toast.success("Employee deleted successfully 👌");
     },
-    onError: (error, variables, context) => {
+    onError: async (error, variables, context) => {
       toast.error("Failed to delete employee 😲");
-      logEvent(ERROR, error.message, { additionalData: error.stack });
+      await logEvent(ERROR, error.message, { additionalData: error.stack });
     },
   });
 };

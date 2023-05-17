@@ -18,15 +18,15 @@ const fetchEmployees = async () => {
 const useFetchEmployees = () => {
   const dispatch = useDispatch();
   return useQuery(["fetch-employees"], fetchEmployees, {
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       dispatch(fetchEmployeesSuccess(data));
-      logEvent(INFO, "Employees Fetched", {
+      await logEvent(INFO, "Employees Fetched", {
         additionalData: JSON.stringify(data),
       });
     },
-    onError: (error, variables, context) => {
+    onError: async (error, variables, context) => {
       toast.error("Failed to fetch employees 😲");
-      logEvent(ERROR, error.message, { additionalData: error.stack });
+      await logEvent(ERROR, error.message, { additionalData: error.stack });
     },
     staleTime: 10000, // 10 seconds
     refetchOnMount: true,

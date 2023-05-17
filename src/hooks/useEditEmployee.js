@@ -22,17 +22,17 @@ const useEditEmployee = () => {
   const navigate = useNavigate();
 
   return useMutation(editEmployee, {
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       queryClient.invalidateQueries("fetch-employees");
-      logEvent(INFO, "Employees Edited", {
+      await logEvent(INFO, "Employees Edited", {
         additionalData: JSON.stringify(data),
       });
       toast.success("Employee edited successfully 👌");
       navigate("/employee/list");
     },
-    onError: (error, variables, context) => {
+    onError: async (error, variables, context) => {
       toast.error("Failed to edit employee 😲");
-      logEvent(ERROR, error.message, { additionalData: error.stack });
+      await logEvent(ERROR, error.message, { additionalData: error.stack });
     },
   });
 };

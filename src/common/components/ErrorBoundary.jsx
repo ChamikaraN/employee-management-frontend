@@ -12,8 +12,8 @@ export default class ErrorBoundary extends React.Component {
     return { hasError: true };
   }
 
-  componentDidCatch(error, info) {
-    logEvent(ERROR, error, {
+  async componentDidCatch(error, info) {
+    await logEvent(ERROR, error, {
       additionalData: info.componentStack,
     });
   }

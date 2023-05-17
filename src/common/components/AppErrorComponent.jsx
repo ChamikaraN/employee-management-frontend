@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useRouteError } from "react-router-dom";
 import logEvent from "../../utils/logger";
 import { ERROR } from "../../constants/sanityConst";
@@ -6,9 +6,21 @@ import { ERROR } from "../../constants/sanityConst";
 export default function AppError() {
   const error = useRouteError();
   const navigate = useNavigate();
-  logEvent(ERROR, error.message, {
-    additionalData: error.statusText,
-  });
+
+  useEffect(() => {
+    const logErrorEvent = async () => {
+      try {
+        await logEvent(ERROR, error.message, {
+          additionalData: error.statusText,
+        });
+      } catch (error) {
+        console.error("Failed to log event:", error);
+      }
+    };
+
+    logErrorEvent();
+  }, [error]);
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="container">
