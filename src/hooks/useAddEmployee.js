@@ -19,17 +19,17 @@ const useAddEmployee = () => {
   const navigate = useNavigate();
 
   return useMutation(addEmployee, {
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       queryClient.invalidateQueries("fetch-employees");
       toast.success("Employee added successfully 👌");
-      logEvent(INFO, "Employees Added", {
+      await logEvent(INFO, "Employees Added", {
         additionalData: JSON.stringify(data),
       });
       navigate("/employee/list");
     },
-    onError: (error, variables, context) => {
+    onError: async (error, variables, context) => {
       toast.error("Failed to add employees 😲");
-      logEvent(ERROR, error.message, { additionalData: error.stack });
+      await logEvent(ERROR, error.message, { additionalData: error.stack });
     },
   });
 };
