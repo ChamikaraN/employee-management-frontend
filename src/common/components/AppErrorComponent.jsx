@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate, useRouteError } from "react-router-dom";
+import logEvent from "../../utils/logger";
+import { ERROR } from "../../constants/sanityConst";
 
-export default function PageNotFound() {
+export default function AppError() {
   const error = useRouteError();
   const navigate = useNavigate();
-
+  logEvent(ERROR, error.message, {
+    additionalData: error.statusText,
+  });
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="container">
@@ -13,8 +17,9 @@ export default function PageNotFound() {
         </div>
         <div className="row my-3 mx-5">
           <p className="text-white">
-            We apologize for the inconvenience, the page you are looking not
-            found. Please click the following link to return to the home page.
+            We apologize for the inconvenience, but we are experiencing some
+            technical difficulties at the moment. Please click the following
+            link to return to the home page.
           </p>
         </div>
         <div className="row my-3 mx-5">

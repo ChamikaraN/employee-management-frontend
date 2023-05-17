@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "../utils/axiosInstance";
 import { toast } from "react-toastify";
+import logEvent from "../utils/logger";
+import { ERROR } from "../constants/sanityConst";
 
 const useDeleteEmployee = () => {
   const queryClient = useQueryClient();
@@ -20,6 +22,7 @@ const useDeleteEmployee = () => {
     },
     onError: (error, variables, context) => {
       toast.error("Failed to delete employee 😲");
+      logEvent(ERROR, error.message, { additionalData: error.stack });
     },
   });
 };
