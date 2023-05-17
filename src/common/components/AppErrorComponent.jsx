@@ -18,7 +18,9 @@ export default function AppError() {
       }
     };
 
-    logErrorEvent();
+    logErrorEvent().catch((error) => {
+      console.error("Failed to log event:", error);
+    });
   }, [error]);
 
   return (
