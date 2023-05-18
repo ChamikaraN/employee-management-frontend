@@ -10,7 +10,7 @@ const logEvent = async (logLevel, message, data) => {
       data,
     });
   } catch (error) {
-    // Handle any potential errors
+    // Handle any potential errors from sanity
     console.error("Failed to log event:", error);
   }
 };
