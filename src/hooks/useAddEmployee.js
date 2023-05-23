@@ -1,18 +1,9 @@
 import { useMutation, useQueryClient } from "react-query";
-import axios from "../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import logEvent from "../utils/logger";
 import { ERROR, INFO } from "../constants/sanityConst";
-
-const addEmployee = async (employeeData) => {
-  try {
-    const response = await axios.post("employee", employeeData);
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to add employee");
-  }
-};
+import { addEmployee } from "../services/EmployeeService";
 
 const useAddEmployee = () => {
   const queryClient = useQueryClient();
