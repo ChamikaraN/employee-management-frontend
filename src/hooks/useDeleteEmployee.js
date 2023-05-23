@@ -1,19 +1,11 @@
 import { useMutation, useQueryClient } from "react-query";
-import axios from "../utils/axiosInstance";
 import { toast } from "react-toastify";
 import logEvent from "../utils/logger";
 import { ERROR } from "../constants/sanityConst";
+import { deleteEmployee } from "../services/EmployeeService";
 
 const useDeleteEmployee = () => {
   const queryClient = useQueryClient();
-
-  const deleteEmployee = async (id) => {
-    try {
-      await axios.delete(`employee/${id}`);
-    } catch (error) {
-      throw new Error(`Failed to delete employee with id ${id}`);
-    }
-  };
 
   return useMutation((id) => deleteEmployee(id), {
     onSuccess: () => {

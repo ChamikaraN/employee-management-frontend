@@ -1,19 +1,10 @@
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { fetchEmployeesSuccess } from "../modules/employee/actions";
-import axios from "../utils/axiosInstance";
 import { toast } from "react-toastify";
 import logEvent from "../utils/logger";
 import { ERROR, INFO } from "../constants/sanityConst";
-
-const fetchEmployees = async () => {
-  try {
-    const response = await axios.get("employee");
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to fetch employees");
-  }
-};
+import { fetchEmployees } from "../services/EmployeeService";
 
 const useFetchEmployees = () => {
   const dispatch = useDispatch();
