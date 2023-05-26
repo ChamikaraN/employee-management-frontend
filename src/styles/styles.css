@@ -72,31 +72,9 @@ h6 {
 }
 
 /* Set the font size and line height for buttons */
-.btn-group,
-.btn {
+.btn-group {
   font-size: 16px;
   line-height: 1.5;
-}
-
-/* Set the background color and border radius for buttons */
-.btn-primary {
-  background: linear-gradient(
-    var(--gradient-angle),
-    var(--success-primary-color),
-    var(--success-secondary-color)
-  );
-  border-radius: 5px;
-  border: #fff;
-}
-
-.btn-danger {
-  background: linear-gradient(
-    var(--gradient-angle),
-    var(--danger-primary-color),
-    var(--danger-secondary-color)
-  );
-  border-radius: 5px;
-  border: #fff;
 }
 
 /* Set the padding and margin for cards */

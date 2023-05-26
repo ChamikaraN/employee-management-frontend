@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useRouteError } from "react-router-dom";
-import logEvent from "../../utils/logger";
-import { ERROR } from "../../constants/sanityConst";
+import logEvent from "../utils/logger";
+import { ERROR } from "../constants/sanityConst";
 
 export default function AppError() {
   const error = useRouteError();

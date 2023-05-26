@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { filterEmployees, toggleView } from "../actions";
+import { filterEmployees, toggleView } from "../../../redux/Employee/actions";
 import { useNavigate } from "react-router-dom";
 
 export default function Toolbar() {

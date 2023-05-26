@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import useFetchEmployees from "../../hooks/useFetchEmployees";
-import GridView from "./components/GridComponent";
-import TableView from "./components/TableComponent";
-import Loading from "../../common/components/LoadingComponent";
-import ErrorComponent from "../../common/components/ErrorComponent";
-import Toolbar from "./components/ToolbarComponent";
-import PopUp from "../../common/components/PopUpComponent";
-import useDeleteEmployee from "../../hooks/useDeleteEmployee";
+import useFetchEmployees from "../../../hooks/useFetchEmployees";
+import GridView from "../../../features/employee/components/GridComponent";
+import TableView from "../../../features/employee/components/TableComponent";
+import Loading from "../../LoadingComponent";
+import ErrorComponent from "../../ErrorComponent";
+import Toolbar from "../../../features/employee/components/ToolbarComponent";
+import PopUp from "../../PopUpComponent";
+import useDeleteEmployee from "../../../hooks/useDeleteEmployee";
 
 export default function EmployeeList() {
   const { employees, showGridView } = useSelector((state) => state.employee);
