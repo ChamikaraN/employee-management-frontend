@@ -13,8 +13,8 @@ export default function Home() {
   return (
     <ContentCenteredPage>
       <Button
-        type={"primary"}
-        size={"lg"}
+        variant={"primary"}
+        styles={"btn-lg"}
         onClickHandler={onClickHandler}
         title={"Go to Employee List"}
       />

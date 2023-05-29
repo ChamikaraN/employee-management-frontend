@@ -8,7 +8,7 @@ import router from "./routes";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AppErrorComponent from "./components/AppErrorComponent";
 import MainLayout from "./layouts/MainLayout";
-import "./styles/styles.css";
+import "./assets/styles.css";
 
 const root = createRoot(document.getElementById("root"));
 const queryClient = new QueryClient();

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function HeaderComponent() {
+const Header = () => {
   return (
     <nav className="navbar navbar-dark ">
       <a className="navbar-brand" href="/">
@@ -8,4 +8,6 @@ export default function HeaderComponent() {
       </a>
     </nav>
   );
-}
+};
+
+export default Header;

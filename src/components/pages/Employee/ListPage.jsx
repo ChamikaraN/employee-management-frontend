@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import useFetchEmployees from "../../../hooks/useFetchEmployees";
-import GridView from "../../../features/employee/components/GridComponent";
-import TableView from "../../../features/employee/components/TableComponent";
+import GridView from "../../organisms/Grid";
+import TableView from "../../organisms/Table";
 import Loading from "../../LoadingComponent";
 import ErrorComponent from "../../ErrorComponent";
-import Toolbar from "../../../features/employee/components/ToolbarComponent";
-import PopUp from "../../PopUpComponent";
+import Toolbar from "../../organisms/ToolBar";
+import PopUp from "../../organisms/PopUp";
 import useDeleteEmployee from "../../../hooks/useDeleteEmployee";
+import ContentFluidPage from "../../templates/ContentFluidPage";
 
 export default function EmployeeList() {
   const { employees, showGridView } = useSelector((state) => state.employee);
@@ -42,17 +43,15 @@ export default function EmployeeList() {
   }
 
   return (
-    <>
-      <div className="container-fluid">
-        <div className="row">
-          <Toolbar />
-        </div>
-        {showGridView ? (
-          <GridView employees={employees} handleDelete={openDeletePopUp} />
-        ) : (
-          <TableView employees={employees} handleDelete={openDeletePopUp} />
-        )}
+    <ContentFluidPage>
+      <div className="row">
+        <Toolbar />
       </div>
+      {showGridView ? (
+        <GridView employees={employees} handleDelete={openDeletePopUp} />
+      ) : (
+        <TableView employees={employees} handleDelete={openDeletePopUp} />
+      )}
       <PopUp
         show={showConfirmation}
         hide={handleClose}
@@ -60,6 +59,6 @@ export default function EmployeeList() {
         title={"Confirm Deletion"}
         message={`Are you sure you want to delete ${selectedEmployee.first_name} ${selectedEmployee.last_name} ?`}
       />
-    </>
+    </ContentFluidPage>
   );
 }

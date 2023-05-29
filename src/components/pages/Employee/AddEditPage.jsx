@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { validationRules } from "../../utils/validationRules";
+import { validationRules } from "../../../utils/validationRules";
 import { useSelector } from "react-redux";
-import useAddEmployee from "../../hooks/useAddEmployee";
-import useEditEmployee from "../../hooks/useEditEmployee";
-
+import useAddEmployee from "../../../hooks/useAddEmployee";
+import useEditEmployee from "../../../hooks/useEditEmployee";
+import ContentCenteredPage from "../../templates/ContentCenteredPage";
 export default function AddEditEmployee() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -72,7 +72,7 @@ export default function AddEditEmployee() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
+    <ContentCenteredPage>
       <div className="col-lg-6 col-md-8 col-sm-10">
         <button
           type="button"
@@ -183,6 +183,6 @@ export default function AddEditEmployee() {
           </button>
         </form>
       </div>
-    </div>
+    </ContentCenteredPage>
   );
 }
