@@ -1,17 +1,34 @@
+import { Reducer } from "redux";
 import {
   FETCH_EMPLOYEES_SUCCESS,
   FILTER_EMPLOYEE,
   TOGGLE_VIEW,
 } from "./actionTypes";
+import { Employee } from "../../types";
+import { EmployeeAction } from "./types";
 
-const initialState = {
+interface EmployeeState {
+  employees: Employee[];
+  employeesOriginal: Employee[];
+  filter: {
+    search: string;
+    order: "asc" | "desc";
+    orderBy: string;
+  };
+  showGridView: boolean;
+}
+
+const initialState: EmployeeState = {
   employees: [],
   employeesOriginal: [],
   filter: { search: "", order: "asc", orderBy: "_id" },
   showGridView: true,
 };
 
-const employeeReducer = (state = initialState, action) => {
+const employeeReducer: Reducer<EmployeeState, EmployeeAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case FETCH_EMPLOYEES_SUCCESS:
       return {
