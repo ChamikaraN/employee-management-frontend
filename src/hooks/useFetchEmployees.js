@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
-import { fetchEmployeesSuccess } from "../modules/employee/actions";
+import { fetchEmployeesSuccess } from "../redux/Employee/actions";
 import { toast } from "react-toastify";
 import logEvent from "../utils/logger";
 import { ERROR, INFO } from "../constants/sanityConst";
