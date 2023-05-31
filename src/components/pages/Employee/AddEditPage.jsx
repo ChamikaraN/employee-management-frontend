@@ -5,10 +5,14 @@ import { useSelector } from "react-redux";
 import useAddEmployee from "../../../hooks/useAddEmployee";
 import useEditEmployee from "../../../hooks/useEditEmployee";
 import ContentCenteredPage from "../../templates/ContentCenteredPage";
+import EmployeeForm from "../../organisms/EmployeeForm";
+import Button from "../../atoms/Button";
+
 export default function AddEditEmployee() {
   const navigate = useNavigate();
   const { id } = useParams();
   const employees = useSelector((state) => state.employee.employees);
+
   const { mutate: addEmployeeMutation, isLoading: addEmployeeIsLoading } =
     useAddEmployee();
   const { mutate: editEmployeeMutation, isLoading: editEmployeeIsLoading } =
@@ -56,8 +60,7 @@ export default function AddEditEmployee() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (validate()) {
       if (id) {
         editEmployeeMutation({ id: id, ...formData });
@@ -67,121 +70,46 @@ export default function AddEditEmployee() {
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleGoBack = () => {
+    navigate("/employee/list");
   };
 
   return (
     <ContentCenteredPage>
       <div className="col-lg-6 col-md-8 col-sm-10">
-        <button
-          type="button"
-          className="btn btn-primary float-right"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/employee/list");
-          }}
-          disabled={addEmployeeIsLoading || editEmployeeIsLoading}
-        >
-          <i className="fa-solid fa-arrow-left"></i> Back
-        </button>
-        <h2 className="mb-4 text-white" data-testid="add-edit-employee-title">
-          {id ? "Edit" : "Add"} Employee
-        </h2>
-        <form onSubmit={handleSubmit} className="p-5 border rounded bg-white">
-          <div className="mb-3">
-            <label htmlFor="firstName" className="form-label">
-              First Name:
-            </label>
-            <input
-              type="text"
-              id="firstName"
-              name="first_name"
-              className={`form-control ${
-                errors.first_name ? "is-invalid" : ""
-              }`}
-              value={formData.first_name}
-              onChange={handleChange}
-            />
-            {errors.first_name && (
-              <div className="invalid-feedback">{errors.first_name}</div>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="lastName" className="form-label">
-              Last Name:
-            </label>
-            <input
-              type="text"
-              id="lastName"
-              name="last_name"
-              className={`form-control ${errors.last_name ? "is-invalid" : ""}`}
-              value={formData.last_name}
-              onChange={handleChange}
-            />
-            {errors.last_name && (
-              <div className="invalid-feedback">{errors.last_name}</div>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className={`form-control ${errors.email ? "is-invalid" : ""}`}
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email}</div>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="phoneNumber" className="form-label">
-              Phone Number:
-            </label>
-            <input
-              type="text"
-              id="phoneNumber"
-              name="number"
-              className={`form-control ${errors.number ? "is-invalid" : ""}`}
-              value={formData.number}
-              onChange={handleChange}
-            />
-            {errors.number && (
-              <div className="invalid-feedback">{errors.number}</div>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="gender" className="form-label">
-              Gender:
-            </label>
-            <select
-              id="gender"
-              name="gender"
-              className={`form-control ${errors.gender ? "is-invalid" : ""}`}
-              value={formData.gender}
-              onChange={handleChange}
-            >
-              <option value="">Select gender</option>
-              <option value="M">Male</option>
-              <option value="F">Female</option>
-            </select>
-            {errors.gender && (
-              <div className="invalid-feedback">{errors.gender}</div>
-            )}
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary float-right"
-            disabled={addEmployeeIsLoading || editEmployeeIsLoading}
-          >
-            {id ? "Update" : "Save"}
-          </button>
-        </form>
+        <Button
+          variant="primary"
+          onClickHandler={handleGoBack}
+          title={
+            <>
+              <i className="fa-solid fa-arrow-left"></i> Back{" "}
+            </>
+          }
+          styles="float-right"
+          isDisable={addEmployeeIsLoading || editEmployeeIsLoading}
+        />
+
+        <h2 className="mb-4 text-white">{id ? "Edit" : "Add"} Employee</h2>
+        <EmployeeForm
+          handleSubmit={handleSubmit}
+          formData={formData}
+          handleChange={handleChange}
+          errors={errors}
+          isSaving={addEmployeeIsLoading || editEmployeeIsLoading}
+        />
       </div>
     </ContentCenteredPage>
   );

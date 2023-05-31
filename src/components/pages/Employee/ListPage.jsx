@@ -3,14 +3,17 @@ import { useSelector } from "react-redux";
 import useFetchEmployees from "../../../hooks/useFetchEmployees";
 import GridView from "../../organisms/Grid";
 import TableView from "../../organisms/Table";
-import Loading from "../../LoadingComponent";
-import ErrorComponent from "../../ErrorComponent";
+import Loading from "../../pages/LoadingComponent";
+import ErrorComponent from "../../pages/ErrorComponent";
 import Toolbar from "../../organisms/ToolBar";
 import PopUp from "../../organisms/PopUp";
 import useDeleteEmployee from "../../../hooks/useDeleteEmployee";
 import ContentFluidPage from "../../templates/ContentFluidPage";
+import { useNavigate } from "react-router-dom";
 
 export default function EmployeeList() {
+  const navigate = useNavigate();
+
   const { employees, showGridView } = useSelector((state) => state.employee);
 
   const { isLoading, isError, error } = useFetchEmployees();
@@ -35,6 +38,10 @@ export default function EmployeeList() {
     setShowConfirmation(false);
   };
 
+  const handleEdit = (employee) => {
+    navigate(`/employee/edit/${employee._id}`);
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -48,9 +55,17 @@ export default function EmployeeList() {
         <Toolbar />
       </div>
       {showGridView ? (
-        <GridView employees={employees} handleDelete={openDeletePopUp} />
+        <GridView
+          employees={employees}
+          handleDelete={openDeletePopUp}
+          handleEdit={handleEdit}
+        />
       ) : (
-        <TableView employees={employees} handleDelete={openDeletePopUp} />
+        <TableView
+          employees={employees}
+          handleDelete={openDeletePopUp}
+          handleEdit={handleEdit}
+        />
       )}
       <PopUp
         show={showConfirmation}

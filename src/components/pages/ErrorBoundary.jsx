@@ -1,6 +1,6 @@
 import React from "react";
-import logEvent from "../utils/logger";
-import { ERROR } from "../constants/sanityConst";
+import logEvent from "../../utils/logger";
+import { ERROR } from "../../constants/sanityConst";
 
 export default class ErrorBoundary extends React.Component {
   constructor(props) {

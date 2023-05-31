@@ -5,8 +5,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import store from "./redux/store";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
-import ErrorBoundary from "./components/ErrorBoundary";
-import AppErrorComponent from "./components/AppErrorComponent";
+import ErrorBoundary from "./components/pages/ErrorBoundary";
+import AppErrorComponent from "./components/pages/AppErrorComponent";
 import MainLayout from "./layouts/MainLayout";
 import "./assets/styles.css";
 

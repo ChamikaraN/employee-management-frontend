@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Button from "../../atoms/Button";
+import "./style.css";
 
-export default function Table({ employees, handleDelete }) {
-  const navigate = useNavigate();
+export default function Table({ employees, handleDelete, handleEdit }) {
   return (
     <div className="row">
       <div className="col my-3">
@@ -42,23 +42,18 @@ export default function Table({ employees, handleDelete }) {
                       />
                     </td>
                     <td>
-                      <button
-                        type="button"
-                        className="btn btn-danger btn-sm mr-2"
-                        onClick={() => handleDelete(employee)}
-                      >
-                        <i className="fas fa-trash-alt"></i>
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-sm "
-                        onClick={(e) => {
-                          e.preventDefault();
-                          navigate(`/employee/edit/${employee._id}`);
-                        }}
-                      >
-                        <i className="fas fa-pencil-alt"></i>
-                      </button>
+                      <Button
+                        variant="danger"
+                        onClickHandler={() => handleDelete(employee)}
+                        styles="btn-sm float-left mr-2"
+                        title={<i className="fas fa-trash" />}
+                      />
+                      <Button
+                        variant="primary"
+                        onClickHandler={() => handleEdit(employee)}
+                        styles="btn-sm "
+                        title={<i className="fas fa-edit" />}
+                      />
                     </td>
                   </tr>
                 );

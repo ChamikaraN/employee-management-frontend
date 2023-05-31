@@ -1,8 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRouteError } from "react-router-dom";
 
 export default function ErrorComponent({ error }) {
+  const routeError = useRouteError();
   const navigate = useNavigate();
+  debugger;
+  const errorMessage = error
+    ? error.message
+    : routeError
+    ? routeError?.error?.message || routeError?.statusText
+    : "";
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="container">
@@ -25,7 +33,7 @@ export default function ErrorComponent({ error }) {
           </button>
         </div>
         <div className="row my-3 mx-5">
-          <p className="text-danger">{error.message}</p>
+          <p className="text-danger">{errorMessage}</p>
         </div>
       </div>
     </div>

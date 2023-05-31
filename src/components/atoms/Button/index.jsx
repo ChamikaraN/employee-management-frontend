@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 
 function Button({
+  type = "button",
   variant,
   onClickHandler,
   title,
@@ -10,6 +11,7 @@ function Button({
 }) {
   return (
     <button
+      type={type}
       className={`btn btn-${variant}  ${styles}`}
       onClick={(e) => {
         e.preventDefault();
