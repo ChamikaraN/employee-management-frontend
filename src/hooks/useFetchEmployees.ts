@@ -5,17 +5,18 @@ import { toast } from "react-toastify";
 import logEvent from "../utils/logger";
 import { ERROR, INFO } from "../constants/sanityConst";
 import { fetchEmployees } from "../services/EmployeeService";
+import { Employee } from "../types";
 
 const useFetchEmployees = () => {
   const dispatch = useDispatch();
-  return useQuery(["fetch-employees"], fetchEmployees, {
+  return useQuery<Employee[], Error>("fetch-employees", fetchEmployees, {
     onSuccess: async (data) => {
       dispatch(fetchEmployeesSuccess(data));
       await logEvent(INFO, "Employees Fetched", {
         additionalData: JSON.stringify(data),
       });
     },
-    onError: async (error, variables, context) => {
+    onError: async (error: Error) => {
       toast.error("Failed to fetch employees 😲");
       await logEvent(ERROR, error.message, { additionalData: error.stack });
     },

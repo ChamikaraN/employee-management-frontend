@@ -3,26 +3,27 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import logEvent from "../utils/logger";
 import { ERROR, INFO } from "../constants/sanityConst";
-import { editEmployee } from "../services/EmployeeService";
+import { addEmployee } from "../services/EmployeeService";
+import { Employee } from "../types";
 
-const useEditEmployee = () => {
+const useAddEmployee = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  return useMutation(editEmployee, {
+  return useMutation<Employee, Error, Employee>(addEmployee, {
     onSuccess: async (data) => {
       queryClient.invalidateQueries("fetch-employees");
-      await logEvent(INFO, "Employees Edited", {
+      toast.success("Employee added successfully 👌");
+      await logEvent(INFO, "Employees Added", {
         additionalData: JSON.stringify(data),
       });
-      toast.success("Employee edited successfully 👌");
       navigate("/employee/list");
     },
-    onError: async (error, variables, context) => {
-      toast.error("Failed to edit employee 😲");
+    onError: async (error: Error) => {
+      toast.error("Failed to add employees 😲");
       await logEvent(ERROR, error.message, { additionalData: error.stack });
     },
   });
 };
 
-export default useEditEmployee;
+export default useAddEmployee;
