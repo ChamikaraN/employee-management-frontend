@@ -1,8 +1,15 @@
 import React from "react";
 import Button from "../../atoms/Button";
 import "./styles.css";
+import { Employee } from "../../../types";
 
-function Card({ employee, handleDelete, handleEdit }) {
+interface Props {
+  employee: Employee;
+  handleDelete: (employee: Employee) => void;
+  handleEdit: (employee: Employee) => void;
+}
+
+const Card: React.FC<Props> = ({ employee, handleDelete, handleEdit }) => {
   return (
     <div className="card h-100">
       <img src={employee.photo} className="card-img-top" alt="Employee" />
@@ -36,6 +43,6 @@ function Card({ employee, handleDelete, handleEdit }) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

@@ -2,7 +2,21 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../atoms/Button";
 
-export default function PopUp({ show, hide, onConfirm, title, message }) {
+interface PopUpProps {
+  show: boolean;
+  hide: () => void;
+  onConfirm: () => void;
+  title: string;
+  message: string;
+}
+
+const PopUp: React.FC<PopUpProps> = ({
+  show,
+  hide,
+  onConfirm,
+  title,
+  message,
+}) => {
   return (
     <Modal show={show} onHide={() => hide()} backdrop="static" keyboard={false}>
       <Modal.Header>
@@ -20,4 +34,6 @@ export default function PopUp({ show, hide, onConfirm, title, message }) {
       </Modal.Footer>
     </Modal>
   );
-}
+};
+
+export default PopUp;

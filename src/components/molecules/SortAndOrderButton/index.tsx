@@ -1,13 +1,21 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import Button from "../../atoms/Button";
 
-function SortAndOrderButton({
+interface SortAndOrderButtonProps {
+  order: "asc" | "desc";
+  onClickOrder: MouseEventHandler<HTMLButtonElement>;
+  sortBy: string;
+  sortByValues: { [key: string]: string }[];
+  onClickSortBy: (key: string) => void;
+}
+
+const SortAndOrderButton: React.FC<SortAndOrderButtonProps> = ({
   order,
   onClickOrder,
   sortBy,
   sortByValues,
   onClickSortBy,
-}) {
+}) => {
   return (
     <div className="btn-group mr-1 my-1" role="group" aria-label="sort-filter">
       <Button
@@ -49,6 +57,6 @@ function SortAndOrderButton({
       </div>
     </div>
   );
-}
+};
 
 export default SortAndOrderButton;

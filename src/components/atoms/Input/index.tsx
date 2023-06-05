@@ -1,7 +1,17 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import "./style.css";
 
-function Input({
+interface InputProps {
+  type?: string;
+  value: string;
+  name: string;
+  placeholder?: string;
+  onChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  styles?: string;
+  isDisable?: boolean;
+}
+
+const Input: React.FC<InputProps> = ({
   type = "text",
   value,
   name,
@@ -9,7 +19,7 @@ function Input({
   onChangeHandler,
   styles = "",
   isDisable = false,
-}) {
+}) => {
   return (
     <input
       type={type}
@@ -24,6 +34,6 @@ function Input({
       disabled={isDisable}
     />
   );
-}
+};
 
 export default Input;

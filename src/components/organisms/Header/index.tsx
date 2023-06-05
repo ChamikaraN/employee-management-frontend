@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <nav className="navbar navbar-dark ">
       <a className="navbar-brand" href="/">

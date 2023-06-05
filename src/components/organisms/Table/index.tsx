@@ -1,8 +1,19 @@
 import React from "react";
 import Button from "../../atoms/Button";
 import "./style.css";
+import { Employee } from "../../../types";
 
-export default function Table({ employees, handleDelete, handleEdit }) {
+interface TableProps {
+  employees: Employee[];
+  handleDelete: (employee: Employee) => void;
+  handleEdit: (employee: Employee) => void;
+}
+
+const Table: React.FC<TableProps> = ({
+  employees,
+  handleDelete,
+  handleEdit,
+}) => {
   return (
     <div className="row">
       <div className="col my-3">
@@ -64,4 +75,6 @@ export default function Table({ employees, handleDelete, handleEdit }) {
       </div>
     </div>
   );
-}
+};
+
+export default Table;

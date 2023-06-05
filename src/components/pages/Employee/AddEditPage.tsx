@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { validationRules } from "../../../utils/validationRules";
-import { useSelector } from "react-redux";
 import useAddEmployee from "../../../hooks/useAddEmployee";
 import useEditEmployee from "../../../hooks/useEditEmployee";
 import ContentCenteredPage from "../../templates/ContentCenteredPage";
 import EmployeeForm from "../../organisms/EmployeeForm";
 import Button from "../../atoms/Button";
+import { Employee } from "../../../types";
+import { useAppSelector } from "../../../redux/hooks";
 
-export default function AddEditEmployee() {
+interface AddEditEmployeeProps {}
+
+const AddEditEmployee: React.FC<AddEditEmployeeProps> = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const employees = useSelector((state) => state.employee.employees);
+  const employees = useAppSelector((state: any) => state.employee.employees);
 
   const { mutate: addEmployeeMutation, isLoading: addEmployeeIsLoading } =
     useAddEmployee();
@@ -20,7 +23,9 @@ export default function AddEditEmployee() {
 
   useEffect(() => {
     if (id) {
-      const employee = employees.find((employee) => employee._id === id);
+      const employee = employees.find(
+        (employee: Employee) => employee._id === id
+      );
       if (employee) {
         setFormData({
           first_name: employee.first_name,
@@ -33,7 +38,7 @@ export default function AddEditEmployee() {
     }
   }, [id, employees]);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Employee>({
     first_name: "",
     last_name: "",
     email: "",
@@ -41,15 +46,16 @@ export default function AddEditEmployee() {
     gender: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const validate = () => {
-    let errors = {};
+  const validate = (): boolean => {
+    let errors: Record<string, string> = {};
 
     Object.entries(validationRules).forEach(([key, rule]) => {
       if (
-        (rule.required && !formData[key]) ||
-        (rule.pattern && !rule.pattern.test(formData[key]))
+        (rule.required && !formData[key as keyof Employee]) ||
+        (rule.pattern &&
+          !rule.pattern.test(String(formData[key as keyof Employee])))
       ) {
         errors[key] = `${rule.message}`;
       }
@@ -70,7 +76,9 @@ export default function AddEditEmployee() {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setErrors((prevErrors) => ({
       ...prevErrors,
@@ -79,7 +87,7 @@ export default function AddEditEmployee() {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value,
+      [name]: String(value),
     }));
   };
 
@@ -113,4 +121,6 @@ export default function AddEditEmployee() {
       </div>
     </ContentCenteredPage>
   );
-}
+};
+
+export default AddEditEmployee;

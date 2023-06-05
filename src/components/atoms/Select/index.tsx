@@ -1,6 +1,20 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
-const Select = ({
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface SelectProps {
+  value: string;
+  name: string;
+  options: Option[];
+  onChangeHandler: (event: ChangeEvent<HTMLSelectElement>) => void;
+  styles?: string;
+  isDisable?: boolean;
+}
+
+const Select: React.FC<SelectProps> = ({
   value,
   name,
   options,
@@ -13,10 +27,7 @@ const Select = ({
       value={value}
       name={name}
       className={`form-control ${styles}`}
-      onChange={(event) => {
-        event.preventDefault();
-        onChangeHandler(event);
-      }}
+      onChange={onChangeHandler} // Update this line
       disabled={isDisable}
     >
       {options.map((option) => (
@@ -27,4 +38,5 @@ const Select = ({
     </select>
   );
 };
+
 export default Select;

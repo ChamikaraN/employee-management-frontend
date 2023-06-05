@@ -1,8 +1,21 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Select from "../../atoms/Select";
 import Input from "../../atoms/Input";
 
-function FormField({
+interface FormFieldProps {
+  label: string;
+  value: string;
+  name: string;
+  placeholder?: string;
+  onChangeHandler: (
+    event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
+  ) => void;
+  styles?: string;
+  errors?: string;
+  options?: { value: string; label: string }[];
+}
+
+const FormField: React.FC<FormFieldProps> = ({
   label,
   value,
   name,
@@ -11,7 +24,7 @@ function FormField({
   styles,
   errors,
   options,
-}) {
+}) => {
   return (
     <div className="mb-3">
       <label className="form-label">{label}:</label>
@@ -35,6 +48,6 @@ function FormField({
       {errors && <div className="invalid-feedback">{errors}</div>}
     </div>
   );
-}
+};
 
 export default FormField;

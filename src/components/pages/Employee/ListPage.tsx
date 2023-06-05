@@ -1,34 +1,41 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import useFetchEmployees from "../../../hooks/useFetchEmployees";
 import GridView from "../../organisms/Grid";
 import TableView from "../../organisms/Table";
-import Loading from "../../pages/LoadingComponent";
-import ErrorComponent from "../../pages/ErrorComponent";
+import Loading from "../LoadingComponent";
+import ErrorComponent from "../ErrorComponent";
 import Toolbar from "../../organisms/ToolBar";
 import PopUp from "../../organisms/PopUp";
 import useDeleteEmployee from "../../../hooks/useDeleteEmployee";
 import ContentFluidPage from "../../templates/ContentFluidPage";
 import { useNavigate } from "react-router-dom";
+import { Employee } from "../../../types";
+import { useAppSelector } from "../../../redux/hooks";
 
-export default function EmployeeList() {
+const EmployeeList: React.FC = () => {
   const navigate = useNavigate();
 
-  const { employees, showGridView } = useSelector((state) => state.employee);
+  const { employees, showGridView } = useAppSelector((state) => state.employee);
 
   const { isLoading, isError, error } = useFetchEmployees();
   const deleteEmployeeMutation = useDeleteEmployee();
 
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState({});
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | {}>({});
 
   const handleConfirmDelete = () => {
-    deleteEmployeeMutation.mutate(selectedEmployee._id);
-    setSelectedEmployee({});
-    setShowConfirmation(false);
+    if (
+      selectedEmployee &&
+      "_id" in selectedEmployee &&
+      selectedEmployee._id !== undefined
+    ) {
+      deleteEmployeeMutation.mutate(selectedEmployee._id);
+      setSelectedEmployee({});
+      setShowConfirmation(false);
+    }
   };
 
-  const openDeletePopUp = (employee) => {
+  const openDeletePopUp = (employee: Employee) => {
     setSelectedEmployee(employee);
     setShowConfirmation(true);
   };
@@ -38,7 +45,7 @@ export default function EmployeeList() {
     setShowConfirmation(false);
   };
 
-  const handleEdit = (employee) => {
+  const handleEdit = (employee: Employee) => {
     navigate(`/employee/edit/${employee._id}`);
   };
 
@@ -72,8 +79,12 @@ export default function EmployeeList() {
         hide={handleClose}
         onConfirm={handleConfirmDelete}
         title={"Confirm Deletion"}
-        message={`Are you sure you want to delete ${selectedEmployee.first_name} ${selectedEmployee.last_name} ?`}
+        message={`Are you sure you want to delete ${
+          (selectedEmployee as Employee).first_name
+        } ${(selectedEmployee as Employee).last_name} ?`}
       />
     </ContentFluidPage>
   );
-}
+};
+
+export default EmployeeList;

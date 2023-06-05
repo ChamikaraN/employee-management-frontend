@@ -1,7 +1,12 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Input from "../../atoms/Input";
 
-function SearchBar({ keyword, onChangeKeyword }) {
+interface SearchBarProps {
+  keyword: string;
+  onChangeKeyword: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ keyword, onChangeKeyword }) => {
   return (
     <div className="btn-group" role="group" aria-label="search-input">
       <div className="input-group mr-1 my-1">
@@ -19,6 +24,6 @@ function SearchBar({ keyword, onChangeKeyword }) {
       </div>
     </div>
   );
-}
+};
 
 export default SearchBar;

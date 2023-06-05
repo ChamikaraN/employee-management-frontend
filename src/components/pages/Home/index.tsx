@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ContentCenteredPage from "../../templates/ContentCenteredPage";
 import Button from "../../atoms/Button";
+import ContentCenteredPage from "../../templates/ContentCenteredPage";
 
-export default function Employees() {
+const Home: React.FC = () => {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
@@ -20,4 +20,6 @@ export default function Employees() {
       />
     </ContentCenteredPage>
   );
-}
+};
+
+export default Home;

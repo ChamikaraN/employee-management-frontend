@@ -7,17 +7,17 @@ class AuthService {
     this.logout = this.logout.bind(this);
   }
 
-  async fetchAccessToken(): Promise<void> {
+  async fetchAccessToken(): Promise<{ accessToken: string }> {
     try {
-      const response = await axios.post(
-        `${apiUrl}/auth`
-      );
+      const response = await axios.post(`${apiUrl}/auth`);
       // Save the access token and refresh token in local storage
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
+      return response.data.accessToken;
     } catch (error) {
       // Handle login error
       console.error(error);
+      throw new Error("Failed to fetch access token");
     }
   }
 
@@ -54,12 +54,9 @@ class AuthService {
     }
 
     try {
-      const response = await axios.post(
-        `${apiUrl}/auth/refresh-token`,
-        {
-          refreshToken,
-        }
-      );
+      const response = await axios.post(`${apiUrl}/auth/refresh-token`, {
+        refreshToken,
+      });
       const { accessToken } = response.data;
 
       // Save the new access token in local storage

@@ -7,7 +7,7 @@ import { deleteEmployee } from "../services/EmployeeService";
 const useDeleteEmployee = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((id) => deleteEmployee(id), {
+  return useMutation<void, Error, string>((id) => deleteEmployee(id), {
     onSuccess: () => {
       queryClient.invalidateQueries("fetch-employees");
       toast.success("Employee deleted successfully 👌");

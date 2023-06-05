@@ -1,7 +1,14 @@
 import React from "react";
 import Card from "../../molecules/Card";
+import { Employee } from "../../../types";
 
-export default function Grid({ employees, handleDelete, handleEdit }) {
+interface GridProps {
+  employees: Employee[];
+  handleDelete: (employee: Employee) => void;
+  handleEdit: (employee: Employee) => void;
+}
+
+const Grid: React.FC<GridProps> = ({ employees, handleDelete, handleEdit }) => {
   return (
     <div className="row">
       {employees.map((employee) => {
@@ -12,14 +19,14 @@ export default function Grid({ employees, handleDelete, handleEdit }) {
           >
             <Card
               employee={employee}
-              handleDelete={handleDelete}
-              handleEdit={() => {
-                handleEdit(employee);
-              }}
+              handleDelete={() => handleDelete(employee)}
+              handleEdit={() => handleEdit(employee)}
             />
           </div>
         );
       })}
     </div>
   );
-}
+};
+
+export default Grid;

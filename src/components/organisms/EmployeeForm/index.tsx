@@ -1,8 +1,31 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import FormField from "../../molecules/FormField";
 import Button from "../../atoms/Button";
 
-const EmployeeForm = ({
+interface EmployeeFormProps {
+  handleSubmit: () => void;
+  formData: {
+    first_name: string,
+    last_name: string,
+    email: string,
+    number: string,
+    gender: string,
+    id?: string,
+  };
+  handleChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  errors: {
+    first_name?: string,
+    last_name?: string,
+    email?: string,
+    number?: string,
+    gender?: string,
+  };
+  isSaving: boolean;
+}
+
+const EmployeeForm: React.FC<EmployeeFormProps> = ({
   handleSubmit,
   formData,
   handleChange,
