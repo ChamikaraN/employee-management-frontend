@@ -1,0 +1,78 @@
+:root {
+  --primary-color: #5d78ff;
+  --secondary-color: #a76ef7;
+  --success-primary-color: #ad79f5;
+  --success-secondary-color: #622baf;
+  --danger-primary-color: #f56584;
+  --danger-secondary-color: #ff0037;
+  --gradient-angle: to bottom right;
+}
+
+/* Set the font color for headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #333;
+}
+
+/* Set the font color for body text and the gradient background */
+body {
+  color: #666;
+  background: linear-gradient(
+    var(--gradient-angle),
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  min-height: 100vh;
+}
+
+/* Set the font size and line height for body text */
+p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Set the font size and line height for headings */
+h1 {
+  font-size: 32px;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 28px;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+h4 {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+h5 {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+h6 {
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+/* Set the background color and border radius for search and sort buttons */
+.dropdown-toggle::after {
+  display: none;
+}
+
+/* Set the font size and line height for buttons */
+.btn-group {
+  font-size: 16px;
+  line-height: 1.5;
+}

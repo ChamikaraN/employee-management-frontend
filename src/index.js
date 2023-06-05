@@ -5,11 +5,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import store from "./redux/store";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
-import HeaderComponent from "./common/components/HeaderComponent";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ErrorBoundary from "./common/components/ErrorBoundary";
-import AppErrorComponent from "./common/components/AppErrorComponent";
+import ErrorBoundary from "./components/pages/ErrorBoundary";
+import AppErrorComponent from "./components/pages/AppErrorComponent";
+import MainLayout from "./layouts/MainLayout";
+import "./assets/styles.css";
 
 const root = createRoot(document.getElementById("root"));
 const queryClient = new QueryClient();
@@ -19,9 +18,9 @@ root.render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary fallback={<AppErrorComponent />}>
-          <ToastContainer />
-          <HeaderComponent />
-          <RouterProvider router={router} />
+          <MainLayout>
+            <RouterProvider router={router} />
+          </MainLayout>
         </ErrorBoundary>
       </QueryClientProvider>
     </Provider>
